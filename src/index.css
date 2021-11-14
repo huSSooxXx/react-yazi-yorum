@@ -21,3 +21,11 @@ code {
   text-decoration: none;
 
 }
+
+.comments-content {
+  padding: 8px;
+  color: whitesmoke;
+  background-color: slateblue;
+  border-radius: 5px;
+  border: 1px solid black;
+}

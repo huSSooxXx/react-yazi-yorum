@@ -14,18 +14,16 @@ const YaziListesi = (props) => {
     }, []);
 
     return (
-        <div>
-          {yaziListesi.map(yazi => {
-              return( 
-              <div className="item" key={yazi.id}>
-                <Link to={`/posts/${yazi.id}`}  className="baslik">{yazi.title}</Link>
-                <br/>
-
-
-                <div className="description">{yazi.created_at}</div>
-              </div>)
-          })}
-        </div>
+      <div>
+        {yaziListesi.map(yazi => {
+            return( 
+            <div className="item" key={yazi.id}>
+              <Link to={`/posts/${yazi.id}`}  className="baslik">{yazi.title}</Link>
+              <br/>
+              <div className="description">{yazi.created_at}</div>
+            </div>)
+        })}
+      </div>
     )
 }
 
