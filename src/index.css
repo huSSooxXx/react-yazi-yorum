@@ -29,3 +29,23 @@ code {
   border-radius: 5px;
   border: 1px solid black;
 }
+
+.yazi-ekle-button {
+  text-decoration: none;
+  display: block;
+  width: fit-content;
+  padding: 8px 12px;
+  background-color: tomato;
+  color: whitesmoke;
+  font-size: 16px;
+  margin: 10px 0px 10px 20px;
+}
+
+.yaziekleform {
+  display: flex;
+  flex-direction: column;
+}
+
+.yaziekleform-baslikinput {
+  padding-top: 50px;
+}

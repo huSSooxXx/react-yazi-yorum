@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import {Link, useParams} from "react-router-dom";
 import "../index.css"
 import axios from "axios"
-import YaziYorumlari from './YaziYorumlari';
+import YorumPanel from './YorumPanel';
 
 const YaziDetayi = (props) => {
     const { id } = useParams();
@@ -28,8 +28,7 @@ const YaziDetayi = (props) => {
                 <h2>{yaziDetayi.title}</h2>
                 <p>{yaziDetayi.content}</p>
                 <p>{yaziDetayi.created_at}</p>
-
-                <YaziYorumlari id={id} />
+                <YorumPanel id={id} />
             </div>
        </React.Fragment>
     )

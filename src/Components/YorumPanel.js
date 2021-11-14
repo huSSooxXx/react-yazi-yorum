@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import YorumListesi from './YorumListesi';
-import YorumYaz from './YorumYaz';
+import YorumEkle from './YorumEkle';
 
-const YaziYorumlari = (props) => {
+const YorumPanel = (props) => {
 
     const [yorumlar, setYorumlar] = useState ([]);
 
@@ -20,9 +20,9 @@ const YaziYorumlari = (props) => {
     return(
         <div>
             <YorumListesi yorumlar={yorumlar} />
-            <YorumYaz id={props.id} setYorumlar={setYorumlar} yorumlar={yorumlar}/>
+            <YorumEkle id={props.id} setYorumlar={setYorumlar} yorumlar={yorumlar}/>
         </div>
     )
 }
 
-export default YaziYorumlari;
+export default YorumPanel;

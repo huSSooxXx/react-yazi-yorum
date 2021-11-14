@@ -3,7 +3,7 @@ import axios from "axios";
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 
-const YorumYaz = (props) => {
+const YorumEkle = (props) => {
     const YORUM_DEFAULT = {display_name : "", body : ""};
     const [commentBody, setCommentBody] = useState(YORUM_DEFAULT);
 
@@ -50,4 +50,4 @@ const YorumYaz = (props) => {
     )
 }
 
-export default YorumYaz;
+export default YorumEkle;

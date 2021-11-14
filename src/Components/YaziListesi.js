@@ -15,6 +15,7 @@ const YaziListesi = (props) => {
 
     return (
       <div>
+        <Link to={`/yaziekle`} className="yazi-ekle-button">Yazi Ekle</Link>
         {yaziListesi.map(yazi => {
             return( 
             <div className="item" key={yazi.id}>
