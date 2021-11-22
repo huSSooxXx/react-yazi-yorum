@@ -1,32 +1,65 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import axios from 'axios';
+import { api } from './api';
+import { useNavigate, Link, useParams } from "react-router-dom";
 
-import { useNavigate } from "react-router-dom";
-
-function YaziEkleFormu() {
+const YaziEkleFormu = (props) => {
     const navigate = useNavigate();
-    const [yazi, setYazi] = useState({title : "", content : ""});
+    const { id } = useParams();
+
+    const [yazi, setYazi] = useState({ title : "", content : ""});
+    const [hatamesaji, setHataMesaji] = useState("");
+
     const onInputChange = (event) => setYazi({...yazi, [event.target.name] : event.target.value});
+    
     const onFormSubmit = (event) => {
         event.preventDefault();
-        axios.post(`https://react-yazi-yorum.herokuapp.com/posts`, yazi)
-        .then(response => {
-            console.log(response);
-            navigate("/");
-        })
-        .catch(error => {
-            console.log(error)
-        });
+        setHataMesaji("");
+        
+        if(props.yazi?.title) {
+            api()
+            .put(`/posts/${id}`, yazi)
+            .then((response) => {
+                console.log(response);
+                navigate(`/posts/${id}`);
+            }).catch(error => {
+                setHataMesaji("Başlık ve yazı içeriği alanları zorunludur.");
+            });
+        } else {
+            api()
+            .post(`/posts`, yazi)
+            .then(response => {
+                console.log(response);
+                navigate("/");
+            })
+            .catch(error => {
+                setHataMesaji("Başlık ve yazı içeriği alanları zorunludur.");
+            });
+        }
     }
+
+    useEffect(() => {
+        if(props.yazi.title && props.yazi.content){
+            setYazi(props.yazi);
+            console.log(props.yazi);
+        }
+    }, [props.yazi]);
 
 
     return (
         <div className='yaziekleformu-container'>
+            <Link to={`/`}  className="anasayfaya-git">Anasayfaya Git</Link>
+            <br/>
             <div>
                 <Box component="form" className='yaziekleform'>
+                    { hatamesaji && (
+                        <div className='hatamesaji-container'>
+                            <p>{hatamesaji}</p>
+                        </div>
+                    )}
+
                     <label htmlFor="">Yazı Başlığı</label>
                     <TextField  
                         variant="standard" 
@@ -39,8 +72,8 @@ function YaziEkleFormu() {
                         className="mdc-text-field__input"
                         onChange={onInputChange}
                         rows="8" 
-                        name="content" 
-                        aria-label="Label">{yazi.content}
+                        value={yazi.content}
+                        name="content">
                         </textarea>
                     <div>
                         <Button variant="contained" onClick={onFormSubmit}>Gönder</Button>

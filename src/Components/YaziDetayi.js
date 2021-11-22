@@ -1,25 +1,34 @@
 import React, {useEffect, useState} from 'react'
-import {Link, useParams} from "react-router-dom";
+import {Link, useParams, useNavigate} from "react-router-dom";
 import "../index.css"
-import axios from "axios"
 import YorumPanel from './YorumPanel';
+import { api } from './api';
+import Button from '@mui/material/Button';
+import { yaziDetayiGetir } from '../Actions';
+import { useSelector, useDispatch } from "react-redux";
 
 const YaziDetayi = (props) => {
     const { id } = useParams();
-    const [yaziDetayi, setYaziDetayi] = useState({});
-    // iki state tek statede birleştirildi.
-    //const [username, setUsername] = useState('');
-    //const [comment, setComment] = useState('');
-    useEffect (() => {
-        axios
-            .get(`https://react-yazi-yorum.herokuapp.com/posts/${id}`)
-            .then((response) => {
-                setYaziDetayi(response.data);
-            }).catch(error => {
-                console.log(error);
-        });
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const yaziDetayi = useSelector((state) => state.yaziDetayi);
 
+    useEffect (() => {
+        dispatch(yaziDetayiGetir(id))
         }, []);
+    
+    const deleteHandler = (yazi_id) => {
+        api()
+        .delete(`/posts/${id}`)
+        .then( () => {
+            navigate("/");
+        })
+        .catch( () => {
+            // hata
+        });
+    }    
+
+
     return (
         <React.Fragment>
             <div className="yazidetay-container">
@@ -27,6 +36,10 @@ const YaziDetayi = (props) => {
                 <br/>
                 <h2>{yaziDetayi.title}</h2>
                 <p>{yaziDetayi.content}</p>
+                <div className='yaziduzenlesil-container'>
+                    <Button variant="contained" onClick={() => deleteHandler(id)} color="error">Sil</Button>
+                    <Link to={`/posts/${id}/edit`}  variant="outlined" color="success">Düzenle</Link>
+                </div>
                 <p>{yaziDetayi.created_at}</p>
                 <YorumPanel id={id} />
             </div>

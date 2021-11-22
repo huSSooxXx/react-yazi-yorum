@@ -1,16 +1,13 @@
-import React, {useEffect, useState} from "react";
-import axios from "axios";
+import React, {useEffect} from "react";
 import {Link} from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { yaziListesiGetir } from "../Actions";
 
 const YaziListesi = (props) => {
-
-    const [yaziListesi, setYaziListesi] = useState([]);
-
+    const yaziListesi = useSelector((state) => state.yaziListesi);
+    const dispatch = useDispatch();
     useEffect (() => {
-      axios.get('https://react-yazi-yorum.herokuapp.com/posts')
-      .then((response) => {
-        setYaziListesi(response.data);
-      });
+      dispatch(yaziListesiGetir());
     }, []);
 
     return (
